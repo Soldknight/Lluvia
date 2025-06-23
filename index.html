@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- ⭐️ Esto es esencial para móviles -->
   <title>Para mi niña que se esfuerza siempre 😻​</title>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   <style>
@@ -11,11 +12,12 @@
       box-sizing: border-box;
     }
 
-    body {
-      background: radial-gradient(circle at center, #111 0%, #000 80%);
+    html, body {
+      width: 100%;
+      height: 100%;
       overflow: hidden;
-      height: 100vh;
       font-family: 'Press Start 2P', cursive;
+      background: radial-gradient(circle at center, #111 0%, #000 80%);
       position: relative;
       transition: opacity 1s ease;
     }
@@ -47,11 +49,11 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      padding: 30px 60px;
+      padding: 1.2em 2em;
       border: 4px solid rgb(255, 0, 212);
       box-shadow: 0 0 20px rgb(195, 0, 255), 0 0 40px rgb(255, 0, 242);
       color: rgb(255, 0, 212);
-      font-size: 1.8em;
+      font-size: 1.2em;
       text-align: center;
       z-index: 2;
       border-radius: 10px;
@@ -59,6 +61,8 @@
       text-shadow: 0 0 10px rgb(255, 0, 234), 0 0 20px rgb(234, 0, 255);
       font-family: 'Press Start 2P', cursive;
       cursor: pointer;
+      max-width: 90%;
+      line-height: 1.4em;
     }
 
     .falling {
@@ -122,14 +126,18 @@
         opacity: 0;
       }
     }
+
+    @media (max-width: 600px) {
+      .center-button {
+        font-size: 0.8em;
+        padding: 1em 1.5em;
+      }
+    }
   </style>
 </head>
 <body>
 
-  <!-- 🌸 Halo rosa de fondo -->
   <div class="halo"></div>
-
-  <!-- 💬 Botón central -->
   <button class="center-button" onclick="iniciarTransicion()">TE AMOO!!!!</button>
 
   <script>
@@ -141,6 +149,7 @@
 
     const coloresNeon = ["#0ff", "#f0f", "#ff0", "#0f0", "#00f", "#f06", "#6ff", "#f90", "#fff", "#f00"];
 
+    // Estrellas
     for (let i = 0; i < 300; i++) {
       const star = document.createElement("div");
       star.className = "star";
@@ -153,6 +162,7 @@
       document.body.appendChild(star);
     }
 
+    // Lluvia
     function crearLluvia() {
       const rand = Math.random();
 
@@ -196,7 +206,6 @@
       for (let i = 0; i < 4; i++) crearLluvia();
     }, 160);
 
-    // ✨ Transición Matrix
     function iniciarTransicion() {
       document.body.style.opacity = 0;
       setTimeout(() => {
