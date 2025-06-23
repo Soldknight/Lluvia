@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Poema para ti 💖</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: radial-gradient(circle at center, #111 0%, #000 80%);
+      overflow: hidden;
+      height: 100vh;
+      font-family: 'Press Start 2P', cursive;
+      color: #fff;
+      text-align: center;
+      position: relative;
+    }
+
+    .poema-box {
+      position: relative;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 2;
+      padding: 40px;
+      max-width: 800px;
+      margin: 0 auto;
+      border: 4px solid #f0f;
+      border-radius: 15px;
+      background-color: rgba(0, 0, 0, 0.3);
+      box-shadow: 0 0 20px #f0f, 0 0 40px #f0f;
+      text-shadow: 0 0 10px #f0f, 0 0 20px #ff0;
+    }
+
+    .star, .falling, .particle, .box-shape {
+      position: absolute;
+      pointer-events: none;
+    }
+
+    .star {
+      background: white;
+      border-radius: 50%;
+      opacity: 0.3;
+    }
+
+    .falling {
+      top: -60px;
+      white-space: nowrap;
+      opacity: 0.95;
+      font-size: 1.2em;
+      animation: fall linear;
+      z-index: 1;
+    }
+
+    .falling.emoji {
+      animation: fallSpin 5s linear;
+    }
+
+    .particle {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      top: -10px;
+      animation: fall linear;
+      opacity: 0.8;
+      filter: blur(1px);
+      box-shadow: 0 10px 10px currentColor;
+      z-index: 1;
+    }
+
+    .box-shape {
+      width: 18px;
+      height: 18px;
+      border: 2px solid;
+      top: -30px;
+      animation: fallSpin 4.5s linear;
+      box-shadow: 0 0 10px;
+      z-index: 1;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(0);
+      }
+      90% {
+        transform: translateY(90vh);
+      }
+      100% {
+        transform: translateY(90vh) scale(1.7);
+        opacity: 0;
+      }
+    }
+
+    @keyframes fallSpin {
+      0% {
+        transform: translateY(0) rotate(0deg);
+      }
+      100% {
+        transform: translateY(90vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 🌟 Texto principal estilo poema -->
+  <div class="poema-box">
+    <p>
+      Eres la razón de mis sonrisas,<br>
+      la calma de mis días,<br>
+      el latido más fuerte de mi corazón,<br>
+      mi lugar favorito en este universo. 💖
+    </p>
+  </div>
+
+  <script>
+    const mensajes = [
+      "Te amo", "Perfecta", "Bella", "Preciosa", "Mi vida", "Mi cielo", "Hermosa",
+      "Guapa", "Mi mundo", "Linda", "Increíble", "Amor eterno", "<3", "❤️", "💖", "⭐", "✨", "😻"
+    ];
+
+    const coloresNeon = ["#0ff", "#f0f", "#ff0", "#0f0", "#00f", "#f06", "#6ff", "#f90", "#fff", "#f00"];
+
+    // Estrellas
+    for (let i = 0; i < 300; i++) {
+      const star = document.createElement("div");
+      star.className = "star";
+      const size = Math.random() * 2 + 1;
+      star.style.width = size + "px";
+      star.style.height = size + "px";
+      star.style.left = Math.random() * 100 + "vw";
+      star.style.top = Math.random() * 100 + "vh";
+      star.style.opacity = Math.random() * 0.3 + 0.2;
+      document.body.appendChild(star);
+    }
+
+    function crearLluvia() {
+      const rand = Math.random();
+
+      if (rand < 0.5) {
+        const el = document.createElement("div");
+        el.className = "falling";
+        const palabra = mensajes[Math.floor(Math.random() * mensajes.length)];
+        el.innerText = palabra;
+        el.style.left = Math.random() * 100 + "vw";
+        el.style.color = coloresNeon[Math.floor(Math.random() * coloresNeon.length)];
+        el.style.fontSize = (Math.random() * 15 + 15) + "px";
+        el.style.animationDuration = (Math.random() * 2 + 2.5) + "s";
+        if (/❤️|💖|✨|⭐|😻/.test(palabra)) {
+          el.classList.add("emoji");
+        }
+        document.body.appendChild(el);
+        setTimeout(() => el.remove(), 5000);
+      } else if (rand < 0.8) {
+        const part = document.createElement("div");
+        part.className = "particle";
+        const color = coloresNeon[Math.floor(Math.random() * coloresNeon.length)];
+        part.style.left = Math.random() * 100 + "vw";
+        part.style.backgroundColor = color;
+        part.style.animationDuration = (Math.random() * 2 + 2) + "s";
+        document.body.appendChild(part);
+        setTimeout(() => part.remove(), 4000);
+      } else {
+        const box = document.createElement("div");
+        box.className = "box-shape";
+        const color = coloresNeon[Math.floor(Math.random() * coloresNeon.length)];
+        box.style.left = Math.random() * 100 + "vw";
+        box.style.borderColor = color;
+        box.style.boxShadow = `0 0 10px ${color}`;
+        box.style.animationDuration = (Math.random() * 2 + 3) + "s";
+        document.body.appendChild(box);
+        setTimeout(() => box.remove(), 5000);
+      }
+    }
+
+    setInterval(() => {
+      for (let i = 0; i < 3; i++) crearLluvia();
+    }, 150);
+  </script>
+</body>
+</html>
